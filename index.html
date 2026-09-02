@@ -415,42 +415,206 @@ button[data-page] {
 <div><h5>City Government</h5><ul><li><a data-page="about" role="link" tabindex="0">About Temporis</a></li><li><a data-page="departments" role="link" tabindex="0">City Departments</a></li><li><a data-page="notices" role="link" tabindex="0">Public Notices</a></li></ul></div>
 <div><h5>Forlorn Hope</h5><ul><li><a data-page="forlorn-hope" role="link" tabindex="0">The Forlorn Hope</a></li><li><a data-page="petition" role="link" tabindex="0">Begin Your Petition</a></li></ul></div>
 </div><div class="fine"><span>The Independent City of Temporis. All records preserved by the Office of the City Archivist.</span><span>cityoftemporis.org</span></div></div></footer>
-<script>(function(){
-  const pages=[...document.querySelectorAll('.page')], home=document.getElementById('home');
-  const sections=new Set(['home','about','departments','forlorn-hope','notices']);
-  function getPage(){ return new URLSearchParams(location.search).get('page') || 'home'; }
-  function route(){
-    const id=getPage();
-    if(sections.has(id)){
-      pages.forEach(p=>p.classList.toggle('active',p===home));
-      requestAnimationFrame(()=>{
-        if(id==='home') window.scrollTo({top:0,behavior:'smooth'});
-        else document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});
+<script>
+  const pages = [...document.querySelectorAll('.page')];
+  const home = document.getElementById('home');
+
+  /*
+   * Clean URL routing
+   *
+   * Public URL                    Internal page ID
+   * ------------------------------------------------
+   * /                             home
+   * /about                        about
+   * /departments                  departments
+   * /forlorn-hope                 forlorn-hope
+   * /notices                      notices
+   * /petition                     petition
+   * /departments/archivist        dept-1
+   * /departments/registry         dept-2
+   * /departments/municipal-works  dept-3
+   * /departments/forlorn-hope     dept-4
+   */
+
+  const routes = {
+    '/': 'home',
+    '/about': 'about',
+    '/departments': 'departments',
+    '/forlorn-hope': 'forlorn-hope',
+    '/notices': 'notices',
+    '/petition': 'petition',
+
+    '/departments/archivist': 'dept-1',
+    '/departments/registry': 'dept-2',
+    '/departments/municipal-works': 'dept-3',
+    '/departments/forlorn-hope': 'dept-4'
+  };
+
+  const urls = {
+    'home': '/',
+    'about': '/about',
+    'departments': '/departments',
+    'forlorn-hope': '/forlorn-hope',
+    'notices': '/notices',
+    'petition': '/petition',
+
+    'dept-1': '/departments/archivist',
+    'dept-2': '/departments/registry',
+    'dept-3': '/departments/municipal-works',
+    'dept-4': '/departments/forlorn-hope'
+  };
+
+  /*
+   * Determine which page should be displayed.
+   *
+   * Clean URLs are preferred.
+   * The old ?page= URLs are supported as a fallback so
+   * existing links/bookmarks don't immediately break.
+   */
+  function getPage() {
+    const path = window.location.pathname.replace(/\/+$/, '') || '/';
+
+    if (routes[path]) {
+      return routes[path];
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const oldPage = params.get('page');
+
+    if (oldPage) {
+      return oldPage;
+    }
+
+    return 'home';
+  }
+
+  /*
+   * Display the requested page.
+   */
+  function route() {
+    const id = getPage();
+
+    /*
+     * These are sections of the homepage rather than
+     * standalone pages.
+     */
+    const sections = new Set([
+      'home',
+      'about',
+      'departments',
+      'forlorn-hope',
+      'notices'
+    ]);
+
+    if (sections.has(id)) {
+      pages.forEach(page => {
+        page.classList.toggle('active', page === home);
       });
+
+      requestAnimationFrame(() => {
+        if (id === 'home') {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        } else {
+          const section = document.getElementById(id);
+
+          if (section) {
+            section.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }
+      });
+
       return;
     }
-    const page=document.getElementById(id);
-    if(!page){ history.replaceState({},'',location.pathname+'?page=home'); route(); return; }
-    pages.forEach(p=>p.classList.toggle('active',p===page));
-    requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+    /*
+     * Standalone page such as:
+     * dept-1, dept-2, dept-3, dept-4, petition
+     */
+    const page = document.getElementById(id);
+
+    if (!page) {
+      history.replaceState({}, '', '/');
+      route();
+      return;
+    }
+
+    pages.forEach(p => {
+      p.classList.toggle('active', p === page);
+    });
+
+    requestAnimationFrame(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
   }
-  function navigate(el){
-    const id=el && el.getAttribute('data-page');
-    if(!id) return;
-    history.pushState({},'',location.pathname+'?page='+encodeURIComponent(id));
+
+  /*
+   * Navigate to a clean public URL.
+   *
+   * Existing HTML can continue using:
+   *
+   * data-page="about"
+   * data-page="dept-1"
+   * data-page="dept-4"
+   *
+   * The routing system converts those IDs into the
+   * appropriate clean URL automatically.
+   */
+  function navigate(el) {
+    const id = el && el.getAttribute('data-page');
+
+    if (!id) return;
+
+    const url = urls[id];
+
+    if (!url) return;
+
+    history.pushState({}, '', url);
     route();
   }
-  document.addEventListener('click',e=>{
-    const link=e.target.closest('[data-page]');
-    if(link) navigate(link);
+
+  /*
+   * Handle clicks on anything using data-page.
+   */
+  document.addEventListener('click', e => {
+    const link = e.target.closest('[data-page]');
+
+    if (!link) return;
+
+    e.preventDefault();
+    navigate(link);
   });
-  document.addEventListener('keydown',e=>{
-    if((e.key==='Enter' || e.key===' ') && e.target.closest('[data-page]')){
+
+  /*
+   * Allow keyboard navigation with Enter or Space.
+   */
+  document.addEventListener('keydown', e => {
+    if (
+      (e.key === 'Enter' || e.key === ' ') &&
+      e.target.closest('[data-page]')
+    ) {
       e.preventDefault();
       navigate(e.target.closest('[data-page]'));
     }
   });
-  window.addEventListener('popstate',route);
+
+  /*
+   * Browser back/forward buttons.
+   */
+  window.addEventListener('popstate', route);
+
+  /*
+   * Initial page load.
+   */
   route();
-})();</script>
+</script>
+
 </body></html>
