@@ -114,7 +114,9 @@ dl{margin:0} dt,dd{margin:0;padding:9px 0;font-size:14px} dt{color:var(--muted);
 .eyebrow{margin:0 0 12px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:bold}
 .fh-quote{margin:18px 0 0;padding:18px 20px;border-left:4px solid var(--gold);background:var(--stone);font-family:Georgia,"Times New Roman",serif;font-style:italic;color:var(--navy);font-size:18px}
 .fh-postershell{display:flex;justify-content:center;padding:10px 0}
-.forlorn-poster{display:block;max-width:360px;width:100%;height:auto;border:2px solid rgba(15,23,42,.18);box-shadow:0 14px 30px rgba(15,23,42,.14);background:#fff;border-radius:16px}
+.fh-poster-link{display:block;max-width:360px;width:100%;border-radius:18px;overflow:hidden;border:2px solid rgba(15,23,42,.18);box-shadow:0 14px 30px rgba(15,23,42,.14);background:#fff;transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease}
+.fh-poster-link:hover,.fh-poster-link:focus-visible{transform:translateY(-2px);box-shadow:0 18px 32px rgba(15,23,42,.18);border-color:rgba(15,23,42,.3)}
+.forlorn-poster{display:block;max-width:360px;width:100%;height:auto;background:#fff;border-radius:18px}
 .site-mark{display:inline-flex;align-items:center;justify-content:center;min-width:56px}
 .fh-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:24px 0}
 .fh-card{padding:18px;border:1px solid var(--line);background:var(--stone)}
@@ -124,7 +126,7 @@ dl{margin:0} dt,dd{margin:0;padding:9px 0;font-size:14px} dt{color:var(--muted);
 .fh-list li{margin:8px 0;color:#44403c}
 .fh-cta{margin-top:18px}
 
-@media(max-width:720px){.detailbox.fh-detail{padding-left:18px}.fh-detail .rank-table{display:block;overflow-x:auto;white-space:normal}.fh-hero,.fh-grid{grid-template-columns:1fr}.forlorn-poster{max-width:280px}}.detailbox h3{color:var(--navy);font-size:24px}.detailbox p{color:#44403c}
+@media(max-width:720px){.detailbox.fh-detail{padding-left:18px}.fh-detail .rank-table{display:block;overflow-x:auto;white-space:normal}.fh-hero,.fh-grid{grid-template-columns:1fr}.fh-poster-link,.forlorn-poster{max-width:280px}}.detailbox h3{color:var(--navy);font-size:24px}.detailbox p{color:#44403c}
 .back{display:inline-block;margin-bottom:20px;font-size:13px;font-weight:bold;text-decoration:underline}
 footer{background:#1e293b;color:#cbd5e1;padding:42px 0 20px}footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px;padding-bottom:25px;border-bottom:1px solid #475569}footer h5{color:#fff;font:700 12px Arial,sans-serif;letter-spacing:.06em}footer ul{list-style:none;padding:0;margin:0;font-size:13px}footer li{margin:7px 0}footer a:hover{color:#fff;text-decoration:underline}.fine{padding-top:15px;font-size:11px;color:#64748b;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
 
