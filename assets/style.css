@@ -74,6 +74,8 @@ dl{margin:0} dt,dd{margin:0;padding:9px 0;font-size:14px} dt{color:var(--muted);
 .fh-intro{font-size:16px;color:#44403c;max-width:900px}
 .fh-section{border-top:1px solid var(--line);margin-top:34px;padding-top:26px}
 .fh-section h3{margin-top:0}
+.fh-subsection{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+.fh-subsection h4{margin:0 0 10px;color:var(--navy);font-size:18px}
 .fh-rank-note{background:#f5f5f4;border:1px solid var(--line);padding:18px 20px;margin:18px 0}
 .fh-rank-note strong{color:var(--navy)}
 .fh-creed{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:19px;color:var(--gold);border-left:3px solid var(--gold);padding:12px 18px;background:#fafaf9}

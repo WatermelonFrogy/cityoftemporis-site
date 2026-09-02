@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TED-01 — Temporal Explosive Device</title>
+
+<style>
+    @page {
+        size: A4;
+        margin: 18mm;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        background: #171717;
+    }
+
+    body {
+        margin: 0;
+        padding: 40px 20px;
+        background:
+            radial-gradient(circle at 20% 20%, rgba(0,0,0,.035) 0 1px, transparent 1px),
+            radial-gradient(circle at 80% 70%, rgba(0,0,0,.025) 0 1px, transparent 1px),
+            #d8d5cc;
+        background-size: 7px 7px, 11px 11px;
+        color: #171717;
+        font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .document {
+        position: relative;
+        max-width: 900px;
+        margin: auto;
+        padding: 65px 75px 80px;
+        background:
+            linear-gradient(rgba(255,255,255,.15), rgba(255,255,255,.15)),
+            #eeeade;
+        box-shadow:
+            0 2px 8px rgba(0,0,0,.35),
+            0 18px 45px rgba(0,0,0,.25);
+        border: 1px solid #aaa79d;
+        overflow: hidden;
+    }
+
+    /* Paper noise */
+    .document::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: .25;
+        background:
+            repeating-linear-gradient(
+                0deg,
+                rgba(0,0,0,.018) 0px,
+                rgba(0,0,0,.018) 1px,
+                transparent 1px,
+                transparent 4px
+            );
+    }
+
+    /* Leak warning */
+    .leak-warning {
+        position: relative;
+        border: 2px solid #222;
+        padding: 12px 16px;
+        margin-bottom: 35px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        letter-spacing: .08em;
+        text-align: center;
+        text-transform: uppercase;
+        background: rgba(0,0,0,.035);
+    }
+
+    .leak-warning strong {
+        display: block;
+        font-size: 18px;
+        letter-spacing: .12em;
+        margin-bottom: 5px;
+    }
+
+    .classification {
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        font-weight: bold;
+        letter-spacing: .18em;
+        font-size: 13px;
+        margin-bottom: 22px;
+    }
+
+    .classification span {
+        border: 2px solid #222;
+        padding: 5px 15px;
+    }
+
+    header {
+        position: relative;
+        border-top: 3px double #222;
+        border-bottom: 3px double #222;
+        padding: 18px 0;
+        margin-bottom: 30px;
+    }
+
+    .agency {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11px;
+        font-weight: bold;
+        letter-spacing: .16em;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+    }
+
+    h1 {
+        font-size: 31px;
+        line-height: 1.05;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: .025em;
+    }
+
+    .subtitle {
+        margin-top: 9px;
+        font-size: 16px;
+        font-style: italic;
+    }
+
+    .document-id {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px 25px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 10px;
+        text-transform: uppercase;
+    }
+
+    .document-id div {
+        border-bottom: 1px dotted #777;
+        padding: 4px 0;
+    }
+
+    .document-id strong {
+        display: inline-block;
+        width: 120px;
+        font-size: 9px;
+    }
+
+    .stamp {
+        position: absolute;
+        right: 5px;
+        top: 80px;
+        transform: rotate(-8deg);
+        border: 3px solid #6d1e1e;
+        color: #6d1e1e;
+        padding: 9px 14px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: .12em;
+        opacity: .7;
+    }
+
+    .notice {
+        position: relative;
+        margin: 25px 0;
+        padding: 14px 17px;
+        border-left: 5px solid #222;
+        background: rgba(0,0,0,.045);
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    h2 {
+        position: relative;
+        margin-top: 38px;
+        margin-bottom: 13px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #555;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 15px;
+        letter-spacing: .09em;
+        text-transform: uppercase;
+    }
+
+    h2::before {
+        content: attr(data-section);
+        float: right;
+        font-size: 9px;
+        font-weight: normal;
+        letter-spacing: .1em;
+    }
+
+    p {
+        position: relative;
+        font-size: 14px;
+        line-height: 1.68;
+        margin: 10px 0;
+        text-align: justify;
+    }
+
+    ul {
+        position: relative;
+        margin: 12px 0 16px 25px;
+        padding: 0;
+    }
+
+    li {
+        margin: 7px 0;
+        font-size: 14px;
+        line-height: 1.45;
+    }
+
+    .quote {
+        position: relative;
+        margin: 25px 30px;
+        padding: 17px 22px;
+        border-top: 1px solid #777;
+        border-bottom: 1px solid #777;
+        font-style: italic;
+        font-size: 17px;
+        line-height: 1.5;
+        text-align: center;
+    }
+
+    .quote::before,
+    .quote::after {
+        font-size: 30px;
+        vertical-align: -8px;
+        color: #777;
+    }
+
+    .quote::before {
+        content: "“";
+        margin-right: 5px;
+    }
+
+    .quote::after {
+        content: "”";
+        margin-left: 5px;
+    }
+
+    .redacted {
+        display: inline-block;
+        background: #111;
+        color: #111;
+        padding: 0 5px;
+        margin: 0 2px;
+        user-select: none;
+    }
+
+    .redacted:hover {
+        color: #111;
+    }
+
+    .margin-note {
+        position: relative;
+        margin: 20px 0;
+        padding: 10px 14px;
+        border: 1px dashed #777;
+        background: rgba(255,255,255,.18);
+        font-family: "Courier New", monospace;
+        font-size: 11px;
+        color: #333;
+    }
+
+    .margin-note strong {
+        font-weight: bold;
+    }
+
+    .technical-table {
+        position: relative;
+        width: 100%;
+        border-collapse: collapse;
+        margin: 18px 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11px;
+    }
+
+    .technical-table th,
+    .technical-table td {
+        border: 1px solid #777;
+        padding: 8px 9px;
+        text-align: left;
+        vertical-align: top;
+    }
+
+    .technical-table th {
+        background: rgba(0,0,0,.07);
+        text-transform: uppercase;
+        font-size: 9px;
+        letter-spacing: .08em;
+    }
+
+    .signature {
+        position: relative;
+        margin-top: 45px;
+        border-top: 1px solid #555;
+        padding-top: 12px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 10px;
+        line-height: 1.6;
+    }
+
+    .signature .scribble {
+        font-family: "Brush Script MT", "Segoe Script", cursive;
+        font-size: 25px;
+        margin: 7px 0;
+    }
+
+    footer {
+        position: relative;
+        margin-top: 55px;
+        padding-top: 12px;
+        border-top: 3px double #222;
+        font-family: "Courier New", monospace;
+        font-size: 9px;
+        line-height: 1.5;
+        text-transform: uppercase;
+    }
+
+    .page-number {
+        float: right;
+        font-weight: bold;
+    }
+
+    .archival-mark {
+        position: absolute;
+        bottom: 25px;
+        left: 25px;
+        transform: rotate(-4deg);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 8px;
+        letter-spacing: .08em;
+        color: #555;
+        border: 1px solid #777;
+        padding: 4px 7px;
+        opacity: .7;
+    }
+
+    .warning-text {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+    }
+
+    .final-note {
+        position: relative;
+        margin-top: 35px;
+        padding: 18px;
+        border: 2px solid #333;
+        font-size: 13px;
+        line-height: 1.6;
+        background: rgba(0,0,0,.025);
+    }
+
+    @media (max-width: 700px) {
+        body {
+            padding: 0;
+        }
+
+        .document {
+            padding: 35px 25px 60px;
+            border: none;
+            box-shadow: none;
+        }
+
+        .document-id {
+            grid-template-columns: 1fr;
+        }
+
+        .stamp {
+            position: relative;
+            display: inline-block;
+            top: auto;
+            right: auto;
+            margin-top: 20px;
+        }
+
+        p {
+            text-align: left;
+        }
+    }
+
+    @media print {
+        html,
+        body {
+            background: white;
+        }
+
+        .document {
+            box-shadow: none;
+            border: none;
+        }
+
+        .leak-warning {
+            display: none;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<main class="document">
+
+    <div class="leak-warning">
+        <strong>UNAUTHORIZED DISCLOSURE</strong>
+        This document is not authorized for public distribution.
+        Reproduction, archival indexing, or external circulation is prohibited.
+    </div>
+
+    <div class="classification">
+        <span>STRATEGIC WEAPONS — CLASSIFIED</span>
+    </div>
+
+    <header>
+        <div class="agency">
+            Office of the City Archivist: Strategic Development Sect
+        </div>
+
+        <h1>TED-01</h1>
+
+        <div class="subtitle">
+            Temporal Explosive Device — First Operational Model
+        </div>
+
+        <div class="document-id">
+            <div><strong>Project:</strong> A91 Antiphase Temporal Resonance</div>
+            <div><strong>Device:</strong> TED-01</div>
+            <div><strong>Common Name:</strong> Saint Jonas Bomb</div>
+            <div><strong>Status:</strong> First Operational Device</div>
+            <div><strong>Classification:</strong> Strategic Weapons Development</div>
+            <div><strong>Distribution:</strong> Restricted</div>
+        </div>
+
+        <div class="stamp">
+            ARCHIVED<br>
+            DO NOT DUPLICATE
+        </div>
+    </header>
+
+    <div class="notice">
+        <span class="warning-text">ARCHIVAL WARNING:</span>
+        The following document concerns the construction and operation of
+        TED-01, the first deliberate weaponization of the A91 phenomenon.
+        Portions of the original document have been withheld from general
+        archival access.
+    </div>
+
+    <h2 data-section="01">Purpose</h2>
+
+    <p>
+        TED-01 was the first deliberate weaponization of the A91 Antiphase
+        Temporal Resonance principle.
+    </p>
+
+    <p>
+        The device was not developed as a conventional explosive. It contains
+        no conventional charge whose combustion, detonation, or expansion
+        constitutes the primary destructive mechanism.
+    </p>
+
+    <p>
+        Instead, TED-01 is designed to <strong>accumulate temporal potential
+        energy and release it instantaneously.</strong>
+    </p>
+
+    <p>
+        In practical terms, the device functions as an energy accumulator with
+        a catastrophic discharge mechanism.
+    </p>
+
+    <p>
+        The original A91 phenomenon was discovered accidentally during
+        small-scale laboratory experimentation. Following the incident,
+        military authorities determined that the same principle could be
+        deliberately reproduced, controlled, enlarged, and weaponized.
+    </p>
+
+    <p>
+        The resulting device was designated <strong>Temporal Explosive Device
+        01</strong>.
+    </p>
+
+    <p>
+        It was subsequently given the name <strong>Saint Jonas Bomb</strong>.
+    </p>
+
+
+    <h2 data-section="02">Operating Principle</h2>
+
+    <p>
+        TED-01 consists principally of a series of specially constructed
+        temporal gears arranged in opposing temporal configurations.
+    </p>
+
+    <p>
+        When coupled, the gears are forced to operate against one another while
+        maintaining opposing temporal states.
+    </p>
+
+    <p>
+        The resulting condition may be compared, in ordinary mechanical terms,
+        to <strong>an unstoppable force meeting an unstoppable force.</strong>
+    </p>
+
+    <p>
+        The gears continue to move, yet neither temporal state is permitted to
+        yield.
+    </p>
+
+    <p>
+        This produces severe <strong>temporal shear</strong> between the
+        opposing states.
+    </p>
+
+    <p>
+        Under normal mechanical conditions, resistance between moving
+        components produces heat, vibration, wear, and occasionally visible
+        sparks.
+    </p>
+
+    <p>
+        The A91 system produces these effects as well, but the majority of the
+        applied mechanical energy is not immediately dissipated.
+    </p>
+
+    <p>
+        Instead, energy is accumulated within the maintained temporal
+        opposition as <strong>temporal potential energy</strong>.
+    </p>
+
+    <p>
+        The longer the opposing states are maintained, and the greater the
+        mechanical force applied to them, the greater the accumulated
+        potential.
+    </p>
+
+
+    <div class="margin-note">
+        <strong>HANDWRITTEN NOTE — SOURCE COPY:</strong><br>
+        “Do not refer to the sparks as the energy source. They are a symptom of
+        the process, not the process itself.”
+    </div>
+
+
+    <h2 data-section="03">Accumulation</h2>
+
+    <p>
+        The temporal gears are not themselves an explosive charge.
+        Their purpose is to establish and maintain the condition necessary for
+        energy accumulation.
+    </p>
+
+    <p>
+        Additional gear assemblies may be coupled together, allowing their
+        opposing temporal states to reinforce one another through
+        <strong>antiphase resonance</strong>.
+    </p>
+
+    <p>
+        As resonance increases, the amount of temporal potential energy that
+        may be maintained within the system increases correspondingly.
+    </p>
+
+    <p>
+        During operation, small quantities of visible light may be produced at
+        the points of mechanical interaction.
+    </p>
+
+    <p>
+        These sparks are considered a normal consequence of the process and
+        are <strong>not</strong> the primary source of the eventual
+        detonation.
+    </p>
+
+    <p>
+        Personnel are expressly warned against interpreting the absence of
+        visible sparks as evidence of a safe or inactive device.
+    </p>
+
+
+    <h2 data-section="04">Containment</h2>
+
+    <p>
+        The principal engineering challenge of TED-01 was not energy
+        accumulation.
+    </p>
+
+    <p>
+        It was preventing premature release.
+    </p>
+
+    <p>
+        While the temporal gear assemblies remain mechanically opposed, the
+        accumulated energy remains constrained by the system.
+    </p>
+
+    <p>
+        The device therefore incorporates a containment and synchronization
+        assembly whose purpose is to maintain the opposing temporal states
+        until deliberate discharge.
+    </p>
+
+    <p>
+        So long as the gears remain engaged, the system remains in a state of
+        enforced opposition.
+    </p>
+
+    <p>
+        This condition is inherently unstable.
+    </p>
+
+    <p>
+        It is maintained only through continuous mechanical constraint.
+    </p>
+
+
+    <div class="technical-table">
+        <tr>
+            <th>System</th>
+            <th>Function</th>
+            <th>Failure Consequence</th>
+        </tr>
+        <tr>
+            <td>Temporal Gear Assembly</td>
+            <td>Maintains opposing temporal states</td>
+            <td>Loss of accumulation</td>
+        </tr>
+        <tr>
+            <td>Resonance Assembly</td>
+            <td>Amplifies temporal potential</td>
+            <td>Reduced yield</td>
+        </tr>
+        <tr>
+            <td>Containment Assembly</td>
+            <td>Prevents premature equilibration</td>
+            <td>Uncontrolled discharge</td>
+        </tr>
+        <tr>
+            <td>Discharge Mechanism</td>
+            <td>Deliberately removes temporal opposition</td>
+            <td>Immediate detonation</td>
+        </tr>
+    </div>
+
+
+    <h2 data-section="05">Discharge</h2>
+
+    <p>
+        The Saint Jonas Bomb does not detonate by adding energy.
+    </p>
+
+    <p>
+        It detonates by <strong>removing the condition preventing the
+        accumulated energy from being released.</strong>
+    </p>
+
+    <p>
+        At activation, the temporal gear assemblies are shifted out of their
+        opposing configuration.
+    </p>
+
+    <p>
+        The gears cease grinding against one another.
+    </p>
+
+    <p>
+        The temporal states are no longer constrained to remain opposed.
+    </p>
+
+    <p>
+        The accumulated temporal potential energy consequently begins to
+        return toward equilibrium.
+    </p>
+
+    <p>
+        Because the system has been deliberately charged to an extreme degree,
+        this equilibration occurs almost instantaneously.
+    </p>
+
+    <p>
+        The stored energy is released into the surrounding environment as a
+        violent combination of:
+    </p>
+
+    <ul>
+        <li>thermal energy;</li>
+        <li>mechanical force;</li>
+        <li>pressure;</li>
+        <li>temporal displacement;</li>
+        <li>and associated destructive effects produced by the rapid collapse
+            of the contained temporal differential.</li>
+    </ul>
+
+
+    <div class="quote">
+        The bomb does not create the energy.<br>
+        It simply stops preventing the energy from leaving.
+    </div>
+
+
+    <h2 data-section="06">TED-01 Development</h2>
+
+    <p>
+        TED-01 was the first successful attempt to scale the A91 phenomenon
+        beyond laboratory experimentation and into a purpose-built destructive
+        device.
+    </p>
+
+    <p>
+        Early development proceeded under the assumption that the principal
+        limitation would be the quantity of energy that could be accumulated.
+    </p>
+
+    <p>
+        Testing demonstrated otherwise.
+    </p>
+
+    <p>
+        The fundamental limitation was the ability of the containment system
+        to survive the stored potential long enough for the device to be
+        deliberately deployed.
+    </p>
+
+    <p>
+        Engineering efforts consequently shifted toward:
+    </p>
+
+    <ol>
+        <li>increasing temporal energy capacity;</li>
+        <li>improving antiphase resonance;</li>
+        <li>preventing accidental phase collapse;</li>
+        <li>strengthening containment;</li>
+        <li>and ensuring reliable remote discharge.</li>
+    </ol>
+
+    <p>
+        TED-01 represented the first complete solution to all five
+        requirements.
+    </p>
+
+
+    <h2 data-section="07">Military Application</h2>
+
+    <p>
+        The strategic reasoning behind TED-01 was uncomplicated.
+    </p>
+
+    <div class="quote">
+        The best defense is offense.
+    </div>
+
+    <p>
+        A technology capable of storing extraordinary quantities of energy
+        while remaining physically contained presented obvious military
+        applications.
+    </p>
+
+    <p>
+        A sufficiently large A91 accumulator could produce a destructive event
+        beyond the practical capabilities of conventional siege weapons,
+        explosives, or artillery.
+    </p>
+
+    <p>
+        Rather than attempting to protect against such a weapon after its
+        development, the military elected to develop the weapon itself.
+    </p>
+
+    <p>
+        TED-01 was therefore authorized as a strategic deterrent and, if
+        necessary, an offensive weapon.
+    </p>
+
+    <p>
+        The designation <em>Temporal Explosive Device</em> was selected for
+        administrative purposes.
+    </p>
+
+    <p>
+        The name <strong>Saint Jonas Bomb</strong> entered common usage
+        shortly thereafter.
+    </p>
+
+
+    <h2 data-section="08">The First Saint Jonas Bomb</h2>
+
+    <p>
+        TED-01 was not intended to be a refined weapon.
+    </p>
+
+    <p>
+        It was intended to prove that the principle could work at destructive
+        scale.
+    </p>
+
+    <p>
+        The device was substantially larger and more mechanically complex
+        than the original experimental assemblies from which the A91
+        principle had been derived.
+    </p>
+
+    <p>
+        Its construction required extensive synchronization of temporal gear
+        assemblies and containment mechanisms.
+    </p>
+
+    <p>
+        Once charged, TED-01 could not safely be treated as an ordinary
+        machine.
+    </p>
+
+    <p>
+        It was, in effect, a reservoir of accumulated potential awaiting the
+        removal of its final restraint.
+    </p>
+
+    <p>
+        The first successful detonation demonstrated that the principle was
+        viable.
+    </p>
+
+    <p>
+        It also established a fact that would define every subsequent
+        generation of temporal weaponry:
+    </p>
+
+    <div class="quote">
+        The greater the energy accumulated, the less forgiving the containment
+        system becomes.
+    </div>
+
+
+    <h2 data-section="09">Significance</h2>
+
+    <p>
+        TED-01 marked the transition of A91 from scientific curiosity to
+        strategic technology.
+    </p>
+
+    <p>
+        The original discovery had been the product of experimentation,
+        curiosity, and an unfortunate willingness to determine what would
+        happen if two opposing temporal states were simply allowed to continue
+        interacting.
+    </p>
+
+    <p>
+        TED-01 was something different.
+    </p>
+
+    <p>
+        It was deliberate.
+    </p>
+
+    <p>
+        Every component of the device existed for the same purpose:
+    </p>
+
+    <div class="quote">
+        to accumulate as much temporal potential energy as possible,<br>
+        hold it in place,<br>
+        and then stop holding it.
+    </div>
+
+    <p>
+        The resulting weapon became the first of the devices subsequently
+        classified as <strong>Temporal Explosive Devices</strong>.
+    </p>
+
+    <p>
+        TED-01 remains historically significant not because it was the largest
+        temporal weapon ever constructed, but because it was the first.
+    </p>
+
+    <p>
+        It demonstrated that the A91 principle could be transformed from an
+        accidental laboratory phenomenon into a controllable mechanism for the
+        release of catastrophic energy.
+    </p>
+
+    <p>
+        The Saint Jonas Bomb was, in the simplest possible terms,
+        <strong>the A91 accumulator operated as a weapon.</strong>
+    </p>
+
+
+    <div class="final-note">
+        <strong>ARCHIVAL NOTE:</strong><br><br>
+
+        The original A91 discovery resulted in the destruction of a portion of
+        the research warehouse. No major injuries were recorded.
+        <br><br>
+
+        TED-01 was considerably more successful.
+        <br><br>
+
+        It was designed to destroy considerably more than a warehouse.
+    </div>
+
+
+    <div class="signature">
+        <strong>AUTHORIZED BY:</strong><br>
+        Office of the City Archivist
+
+        <div class="scribble">
+            High Archivist, Calem Rhovan
+        </div>
+
+        <strong>DOCUMENT STATUS:</strong> ARCHIVED / RESTRICTED<br>
+        <strong>REVISION:</strong> 01 — ORIGINAL ISSUE<br>
+        <strong>COPY NUMBER:</strong> <span class="redacted">██████</span>
+    </div>
+
+
+    <footer>
+        TEMPORAL RESEARCH ARCHIVE — STRATEGIC WEAPONS DIVISION
+        <span class="page-number">TED-01 / END OF RECORD</span>
+        <br>
+        UNAUTHORIZED COPIES ARE SUBJECT TO ARCHIVAL DISPOSAL.
+    </footer>
+
+    <div class="archival-mark">
+        SCANNED COPY — CONDITION: GOOD
+    </div>
+
+</main>
+
+</body>
+</html>
